@@ -1,0 +1,13 @@
+body {
+  color: #999999;
+  font-family: "Microsoft Yahei", "Segoe UI", Tahoma, Arial;
+  font-size: 13px;
+  line-height: 18px;
+}
+div {
+  background: #049cdb;
+  border: 5px solid #0064cd;
+  width: 300px;
+  height: 300px;
+  margin: 50px auto;
+}

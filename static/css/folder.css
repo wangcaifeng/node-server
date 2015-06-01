@@ -1,0 +1,45 @@
+﻿ul li{ 
+	font-size: 14px;
+	text-decoration: none;
+	color: #000;
+	height: 20px;
+	line-height: 20px;
+	list-style-type: none;
+	color: #000;
+	padding-left: 18px;
+
+}
+ul li a{ color: #000; }
+ul li.dir{ background:url('http://127.0.0.1:2850/static/images/fileicon/folder.gif') 0 4px no-repeat; }
+ul li.html{ background:url('http://127.0.0.1:2850/static/images/fileicon/html.gif') 0 4px no-repeat; }
+ul li.css{ background:url('http://127.0.0.1:2850/static/images/fileicon/css.gif') 0 4px no-repeat; }
+ul li.json{ background:url('http://127.0.0.1:2850/static/images/fileicon/json.gif') 0 4px no-repeat; }
+ul li.rar{ background:url('http://127.0.0.1:2850/static/images/fileicon/rar.gif') 0 4px no-repeat; }
+ul li.zip{ background:url('http://127.0.0.1:2850/static/images/fileicon/zip.gif') 0 4px no-repeat; }
+ul li.jpg{ background:url('http://127.0.0.1:2850/static/images/fileicon/jpg.gif') 0 4px no-repeat; }
+ul li.jpg{ background:url('http://127.0.0.1:2850/static/images/fileicon/jpg.gif') 0 4px no-repeat; }
+
+<%
+
+	return function(){
+		var fs = require("fs");
+        fs.readdir(request.root+"/static/images/fileicon/",function(error,files){ 
+            if(error){
+                response.end(  __p );
+            }else{
+                var expires = new Date(); 
+                expires.setTime( expires.getTime() + 1000*60*60*24 );
+
+                response.writeHead(200, {"Content-Type": "text/css",Expires:expires});
+                
+                files.map(function(file){
+                  file = file.replace('.gif','');
+                  __p += "ul li."+file+"\{background: url('"+"../images/fileicon/"+file+".gif') no-repeat left center;\}\n"
+                });
+
+                response.end(  __p );
+            }
+        });
+		
+	}
+%>

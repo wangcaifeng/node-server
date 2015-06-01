@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html>
+<html>
+<style>
+html,body,div{margin: 0px; padding: 0px; border: 0px;} 
+img{width: 100%}
+#container{ margin: 50px 0px 0px 100px; position: relative;}
+#input1{display: block; width: 60px; height: 30px; background: #2cac93; color: #fff; border-radius: 5px; text-align: center; line-height: 30px; font-size: 12px; cursor: pointer;}
+iframe{position: absolute; opacity: 0;}
+#preview{ margin-top: 10px; width: 200px; height: auto;}
+</style>
+<body>
+	<div id="container">
+		<a id="input1">上传</a>
+		<progress id="progressBar" value='0'></progress>
+		<div id='preview'></div>
+	</div>
+	
+</body>
+<script>
+var input1 = document.getElementById('input1');
+var iframe=document.createElement('iframe');
+document.getElementById('container').appendChild(iframe);
+iframe.width = input1.offsetWidth;
+iframe.src="../lib/html/upload.html"
+iframe.height = input1.offsetHeight;
+iframe.style.left = input1.offsetLeft+'px';
+iframe.style.top = input1.offsetTop+'px';
+iframe.style.border = 0;
+iframe.name="iframe1";
+iframe.id="iframe1";
+iframe.onload=function(){
+	var doc = document.getElementById('iframe1').contentDocument;
+	var iframe1 = doc || document.frames['iframe1'].document;
+	var form = iframe1.getElementById('form');
+	var upload = iframe1.getElementById('upload');
+	upload.onchange=function(e){
+		
+		var xmlHttp;
+		 //ie10及以上浏览器
+		if( (xmlHttp = window.XMLHttpRequest ? new XMLHttpRequest() : {}).upload ){        //支持ajax2.0直接的文件上传带进度
+		   	//图片预览
+		    var file = e.target.files[0];
+			var img = new Image(), url = img.src = URL.createObjectURL(file);
+	        img.onload = function() {
+	            URL.revokeObjectURL(url)
+	            document.getElementById('preview').appendChild(img)
+	        }
+
+	        //进度条
+		    xmlHttp.upload.addEventListener('progress',
+		    	function(event ){
+		    		 if ( event . lengthComputable ) {
+		                 progressBar.max = event.total ;
+		                 progressBar.value = event.loaded ;
+		             }
+		    	}); 
+		    xmlHttp.onreadystatechange = function(e){
+		        if (xmlHttp.readyState == 4){
+		            var json;
+		            try{
+		                json = JSON.parse(xmlHttp.responseText)
+		            }catch(e){
+		                // is not a JSON result       
+		            }
+		            form.reset();
+		        }    
+		    };
+		    var formdata = new FormData(form);
+		    xmlHttp.open("POST", form.action, true);
+		    xmlHttp.send(formdata);
+		}else{
+			console.log(form.reset)
+			 xmlHttp = new ActiveXObject('Msxml2.XMLHTTP');
+			 form.submit();
+		}
+	}		 
+}
+	
+/*}
+requestAnimationFrame(step);*/
+// var updata = setInterval(function(){
+// 	if(document.getElementById('input').value.length){
+// 		var input=document.getElementById('input');
+// 		var xmlHttp;
+// 		if(window.XMLHttpRequest) {
+// 		    xmlHttp=new XMLHttpRequest();
+// 		}else{
+// 		    xmlHttp=new ActiveXObject(Msxml2.XMLHTTP);
+// 		}
+// 		xmlHttp.open("POST",'creatserver.js',true);
+// 		xmlHttp.setRequestHeader("Content-type","application/x-www-form-urlencoded")//将send的编码格式转为浏览器解析支持的格式name:1, id:（空格）2
+// 		xmlHttp.send(document.getElementById('input').value); 
+// 		xmlHttp.onreadystatechange=getOkPost
+// 		function getOkPost(){
+// 		    if(xmlHttp.readyState==1||xmlHttp.readyState==2||xmlHttp.readyState==3){
+// 		        // 本地提示：加载中/处理中
+		                                                 
+// 		    }
+// 		    if (xmlHttp.readyState==4 && xmlHttp.status==200){
+// 		        console.log(xmlHttp.getResponseHeader("Content-Type"));//返回的文本格式类型 比如json格式的string
+// 		        var d=xmlHttp.responseText; // 返回值
+// 		        // 处理返回值
+// 		    }
+// 		}
+
+// 		document.getElementById('form').submit();
+// 		clearInterval(nn);
+// 	}
+// },2000)
+
+</script>
+</html> 
