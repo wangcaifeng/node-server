@@ -1,9 +1,8 @@
 {
-  "name": "myApp",
+  "name": "node-server",
   "version": "0.0.0",
-  "author": "simple",
-  "description": "Nodejs Package json介绍",
-  "keywords": "javascript, nodejs",
+  "description": "a nodejs based file-system-server",
+  "main": "creatserver.js",
   "respository": {
     "type": "git",
     "url": "http://path/to/url"
@@ -29,11 +28,45 @@
   "scripts": {
     "start": "node ./bin/www"
   },
-  "dependencies": {},
+  "dependencies": {
+    "formidable": ">=1.0.15",
+    "mime": "*",
+    "underscore": ">=1.7.0",
+    "less": "*"
+  },
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-contrib-concat": "^0.5.1",
     "grunt-contrib-less": "^1.0.1",
     "grunt-contrib-uglify": "^0.9.1"
-  }
+  },
+  "scripts": {
+    "start": "node creatserver.js explorer http://localhost",
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wangcaifeng/node-server"
+  },
+  "keywords": [
+    "creatserver"
+  ],
+  "author": {
+    "name": "wangcaifeng"
+  },
+  "license": "ISC",
+  "homepage": "https://github.com/wangcaifeng/node-server",
+  "_id": "f2e-server@0.0.1",
+  "_from": "f2e-server@*",
+  "_npmVersion": "2.7.4",
+  "_nodeVersion": "0.12.2",
+  "_npmUser": {
+    "name": "shy2850",
+    "email": "shy2850@163.com"
+  },
+  "maintainers": [
+    {
+      "name": "wangcaifeng",
+      "email": "piaoerxiaofeng@126.com"
+    }
+  ]
 }
