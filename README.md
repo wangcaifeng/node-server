@@ -12,7 +12,7 @@ github: <https://github.com/wangcaifeng/node-server-forfront/>
 	``cd node_modules/ node-server-forfront``
 * 启动 node-server-forfront服务:$ 
 	``node creatserver.js`` 
-* 配置文件参考: [lib\config/config.js](lib\config/config.js) 
+* 配置文件参考: [lib\config/config.js](lib/config/config.js) 
 
 	
 
