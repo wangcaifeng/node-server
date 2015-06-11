@@ -1,0 +1,85 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'd:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'd:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'publish',
+1 verbose cli   'D:node-server' ]
+2 info using npm@2.7.4
+3 info using node@v0.12.2
+4 verbose publish [ 'D:node-server' ]
+5 silly cache add args [ 'D:node-server', null ]
+6 verbose cache add spec D:node-server
+7 silly cache add parsed spec { raw: 'D:node-server',
+7 silly cache add   scope: null,
+7 silly cache add   name: null,
+7 silly cache add   rawSpec: 'D:node-server',
+7 silly cache add   spec: 'D:\\node-server',
+7 silly cache add   type: 'directory' }
+8 verbose addLocalDirectory C:\Users\piaozai\AppData\Roaming\npm-cache\node-server\0.0.0\package.tgz not in flight; packing
+9 verbose tar pack [ 'C:\\Users\\piaozai\\AppData\\Roaming\\npm-cache\\node-server\\0.0.0\\package.tgz',
+9 verbose tar pack   'D:\\node-server' ]
+10 verbose tarball C:\Users\piaozai\AppData\Roaming\npm-cache\node-server\0.0.0\package.tgz
+11 verbose folder D:\node-server
+12 info prepublish node-server@0.0.0
+13 verbose addLocalTarball adding from inside cache C:\Users\piaozai\AppData\Roaming\npm-cache\node-server\0.0.0\package.tgz
+14 silly cache afterAdd node-server@0.0.0
+15 verbose afterAdd C:\Users\piaozai\AppData\Roaming\npm-cache\node-server\0.0.0\package\package.json not in flight; writing
+16 verbose afterAdd C:\Users\piaozai\AppData\Roaming\npm-cache\node-server\0.0.0\package\package.json written
+17 silly publish { name: 'node-server',
+17 silly publish   version: '0.0.0',
+17 silly publish   description: 'a nodejs based file-system-server',
+17 silly publish   main: 'creatserver.js',
+17 silly publish   respository: { type: 'git', url: 'http://path/to/url' },
+17 silly publish   bugs: { url: 'http://path/to/bug', email: 'bug@example.com' },
+17 silly publish   contributors: [ { name: 'zhangsan', email: 'zhangsan@example.com' } ],
+17 silly publish   license: 'ISC',
+17 silly publish   engines: { node: '0.10.x' },
+17 silly publish   script: { start: 'node index.js' },
+17 silly publish   private: true,
+17 silly publish   scripts: { start: 'node creatserver.js explorer http://localhost' },
+17 silly publish   dependencies:
+17 silly publish    { formidable: '>=1.0.15',
+17 silly publish      mime: '*',
+17 silly publish      underscore: '>=1.7.0',
+17 silly publish      less: '*' },
+17 silly publish   devDependencies:
+17 silly publish    { grunt: '^0.4.5',
+17 silly publish      'grunt-contrib-concat': '^0.5.1',
+17 silly publish      'grunt-contrib-less': '^1.0.1',
+17 silly publish      'grunt-contrib-uglify': '^0.9.1' },
+17 silly publish   repository:
+17 silly publish    { type: 'git',
+17 silly publish      url: 'https://github.com/wangcaifeng/node-server' },
+17 silly publish   keywords: [ 'creatserver' ],
+17 silly publish   author: { name: 'wangcaifeng' },
+17 silly publish   homepage: 'https://github.com/wangcaifeng/node-server',
+17 silly publish   _id: 'node-server@0.0.0',
+17 silly publish   _from: '.',
+17 silly publish   _npmVersion: '2.7.4',
+17 silly publish   _nodeVersion: '0.12.2',
+17 silly publish   _npmUser: { name: 'shy2850', email: 'shy2850@163.com' },
+17 silly publish   maintainers: [ { name: 'wangcaifeng', email: 'piaoerxiaofeng@126.com' } ],
+17 silly publish   gitHead: '3bc6bc622a4aa83479da513f391197053147029f',
+17 silly publish   readme: 'ERROR: No README data found!',
+17 silly publish   _shasum: '49c9ad892482ccb972423354777042fb842614fe' }
+18 verbose stack Error: This package has been marked as private
+18 verbose stack Remove the 'private' field from the package.json to publish it.
+18 verbose stack     at publish_ (d:\Program Files\nodejs\node_modules\npm\lib\publish.js:108:5)
+18 verbose stack     at Array.<anonymous> (d:\Program Files\nodejs\node_modules\npm\node_modules\slide\lib\bind-actor.js:15:8)
+18 verbose stack     at LOOP (d:\Program Files\nodejs\node_modules\npm\node_modules\slide\lib\chain.js:15:14)
+18 verbose stack     at LOOP (d:\Program Files\nodejs\node_modules\npm\node_modules\slide\lib\chain.js:14:28)
+18 verbose stack     at chain (d:\Program Files\nodejs\node_modules\npm\node_modules\slide\lib\chain.js:20:5)
+18 verbose stack     at d:\Program Files\nodejs\node_modules\npm\lib\publish.js:74:5
+18 verbose stack     at RES (d:\Program Files\nodejs\node_modules\npm\node_modules\inflight\inflight.js:23:14)
+18 verbose stack     at f (d:\Program Files\nodejs\node_modules\npm\node_modules\once\once.js:17:25)
+18 verbose stack     at d:\Program Files\nodejs\node_modules\npm\lib\cache.js:359:14
+18 verbose stack     at d:\Program Files\nodejs\node_modules\npm\node_modules\write-file-atomic\index.js:29:15
+19 verbose cwd d:\node-server
+20 error Windows_NT 6.1.7601
+21 error argv "d:\\Program Files\\nodejs\\node.exe" "d:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "publish" "D:node-server"
+22 error node v0.12.2
+23 error npm  v2.7.4
+24 error This package has been marked as private
+24 error Remove the 'private' field from the package.json to publish it.
+25 error If you need help, you may report this error at:
+25 error     <https://github.com/npm/npm/issues>
+26 verbose exit [ 1, true ]

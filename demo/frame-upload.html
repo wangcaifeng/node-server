@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <style>
-html,body,div{margin: 0px; padding: 0px; border: 0px;} 
+html,body,div{margin: 0px; padding: 0px; border: 0px; overflow: hidden;} 
 img{width: 100%}
 #container{ margin: 50px 0px 0px 100px; position: relative;}
 #input1{display: block; width: 60px; height: 30px; background: #2cac93; color: #fff; border-radius: 5px; text-align: center; line-height: 30px; font-size: 12px; cursor: pointer;}
@@ -17,35 +17,60 @@ iframe{position: absolute; opacity: 0;}
 	
 </body>
 <script>
+var timeindex = 1;
+window.requestAFrame = (function () {
+	return  window.requestAnimationFrame ||
+			window.webkitRequestAnimationFrame ||
+			window.mozRequestAnimationFrame ||
+			window.oRequestAnimationFrame ||
+			function (fn) {
+				return window.setTimeout(fn, 1000/60); 
+			};
+})();
+var queuetimer = 200*60/1000;
+function queueTimeout(){
+	if(timeindex % queuetimer === 0){
+		Timeoutfuc()
+	}
+	requestAFrame(queueTimeout);
+	timeindex = (1+timeindex) % (18000) //最高轮训5minute
+}
+queueTimeout();
 var input1 = document.getElementById('input1');
 var iframe=document.createElement('iframe');
 document.getElementById('container').appendChild(iframe);
-iframe.width = input1.offsetWidth;
 iframe.src = "../lib/html/upload.html";
-iframe.height = input1.offsetHeight;
 iframe.style.left = input1.offsetLeft+'px';
 iframe.style.top = input1.offsetTop+'px';
-iframe.style.border = 0;
+iframe.style.border = '0px';
+iframe.style.width = input1.offsetWidth+'px';
+iframe.style.height = input1.offsetHeight+'px';
+iframe.style.opacity = 0;
+iframe.style.filter = 'alpha(opacity=0)';
 iframe.name="iframe1";
 iframe.id="iframe1";
-iframe.onload=function(){
-	var doc = document.getElementById('iframe1').contentDocument;
-	var iframe1 = doc || document.frames['iframe1'].document;
-	var form = iframe1.getElementById('form');
-	var upload = iframe1.getElementById('upload');
-	upload.onchange=function(e){
-		
+
+
+function Timeoutfuc(){
+	try{
+		doc = iframe.contentDocument || document.frames['iframe1'].document; 
+	}catch(e){
+		return false;
+	}
+	var form =doc.getElementById ? doc.getElementById('form') : doc.form ;
+	var upload = doc.getElementById ?  doc.getElementById('upload') : doc.form.upload;
+	if(upload.value){
 		var xmlHttp;
 		 //ie10及以上浏览器
 		if( (xmlHttp = window.XMLHttpRequest ? new XMLHttpRequest() : {}).upload ){        //支持ajax2.0直接的文件上传带进度
 		   	//图片预览
-		    var file = e.target.files[0];
+		    /*var file = upload.files[0];
 			var img = new Image(), url = img.src = URL.createObjectURL(file);
 	        img.onload = function() {
 	            URL.revokeObjectURL(url);
 	            document.getElementById('preview').innerHTML='';
 	            document.getElementById('preview').appendChild(img)
-	        }
+	        }*/
 
 	        //进度条
 		    xmlHttp.upload.addEventListener('progress',
@@ -59,7 +84,13 @@ iframe.onload=function(){
 		        if (xmlHttp.readyState == 4){
 		            var json;
 		            try{
-		                json = JSON.parse(xmlHttp.responseText)
+		                json = JSON.parse(xmlHttp.responseText);
+		                var img = new Image();
+						img.src = json.imgURL;
+				        img.onload = function() {
+				            document.getElementById('preview').innerHTML='';
+				            document.getElementById('preview').appendChild(img)
+				        }
 		            }catch(e){
 		                // is not a JSON result       
 		            }
@@ -71,7 +102,20 @@ iframe.onload=function(){
 		    xmlHttp.send(formdata);
 		}else{
 			 xmlHttp = new ActiveXObject('Msxml2.XMLHTTP');
-			 form.submit();            
+			 form.submit(); 
+			 iframe.onload=function(){
+				var data = (iframe.contentDocument || document.frames['iframe1'].document).body.innerHTML;
+				var url = (new Function('return '+data))();
+				var img = new Image();
+					img.src = url.imgURL;
+			        img.onload = function() {
+			            document.getElementById('preview').innerHTML='';
+			            document.getElementById('preview').appendChild(img)
+			        }
+			  	iframe.onload = null;
+			  	iframe.src = "../lib/html/upload.html";
+			  	return;
+			 }         
 		}
 	}		 
 }
