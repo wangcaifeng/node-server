@@ -1,5 +1,5 @@
 {
-  "name": "wangcaifeng",
+  "name": "node-server-forfront",
   "version": "0.10.0",
   "description": "a nodejs based file-system-server",
   "main": "creatserver.js",
