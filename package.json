@@ -5,7 +5,7 @@
   "main": "creatserver.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/wangcaifeng/node-server-forfont"
+    "url": "https://github.com/wangcaifeng/node-server-forfront"
   },
   "contributors": [
     "wangcaifeng <piaoerxiaofeng@126.com>"
@@ -19,7 +19,7 @@
     "creatserver"
   ],
   "author": "wangcaifeng",
-  "homepage": "https://github.com/wangcaifeng/node-server-forfont",
+  "homepage": "https://github.com/wangcaifeng/node-server-forfront",
   "_npmVersion": "2.7.4",
   "_nodeVersion": "0.12.2",
   "_npmUser": {
