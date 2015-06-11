@@ -1,0 +1,1 @@
+var http=require("http");http.createServer(function(e,t){t.write("<P>nodejs</P>"),t.end("hello world")}).listen(3e3);
