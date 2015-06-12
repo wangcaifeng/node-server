@@ -1,6 +1,6 @@
 {
   "name": "node-server-forfront",
-  "version": "0.10.2",
+  "version": "0.10.3",
   "description": "a nodejs based file-system-server",
   "main": "creatserver.js",
   "repository": {
@@ -31,9 +31,10 @@
   ],
   "dependencies": {
     "formidable": ">=1.0.15",
+    "less": "*",
+    "marked": "^0.3.3",
     "mime": "*",
-    "underscore": ">=1.7.0",
-    "less": "*"
+    "underscore": ">=1.7.0"
   },
   "devDependencies": {
     "grunt": "^0.4.5",

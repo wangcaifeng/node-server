@@ -1,5 +1,6 @@
 var mime = require("mime"),    //MIME类型
     http = require("http"),
+    https = require("https"),
     fs = require("fs"),
     _ = require('underscore'),
     url = require('url'),
@@ -10,6 +11,7 @@ var mime = require("mime"),    //MIME类型
     less=require('less'),
     querystring = require("querystring"),
     path = require('path'),
+    markdown = require('marked')
     CONF = require('./lib/config/config.js'),
     agent = require('./lib/filter/agent.js');
 var cookies = {};
@@ -18,15 +20,20 @@ function start(conf){
       var root = conf.path||__dirname+'/';//creatserver.js所在dirname目录
           pathname = url.parse(req.url).pathname;
       try{pathurl = decodeURI(url.parse(req.url).pathname); }catch(e){ pathurl = req.url; }
-      var pathname = (pathurl === '/') ? (root) : root + pathurl;  //根目录时，追加welcome页面
+      var pathname = (pathurl === '/') ? (root) : root + pathurl; 
           req.data =querystring.parse(url.parse(req.url).query);
           req.$ = {title: pathurl, fileList: [], util:'http://127.0.0.1:2850/',root:root};
           var DEBUG = req.data.debug === "true"
       fs.stat(pathname, function(error, stats){
         if(error){
-          if(!fs.existsSync(pathname)){
-            agent.execute(req,resp,root,pathname,pathurl,__dirname);
-          }  
+          if(!fs.existsSync(pathname)&&conf.agent){
+            agent.execute(req,resp,pathurl,conf.agent);
+          } else{
+             resp.writeHead(404, {
+                  "Content-Type": 'text/html'
+              });
+              resp.end("404");
+          } 
         }else if(!error&& stats && stats.isDirectory && stats.isDirectory()){
               var folder = path.join( __dirname , "lib/tmpl/folder.html" );
               directory.execute(req,resp,root,pathname,pathurl,__dirname);
@@ -35,7 +42,7 @@ function start(conf){
             upload.execute(req,resp,root,pathname,pathurl,__dirname)
           }else{
               resp.writeHead(200, {
-                  "Content-Type": mime.lookup(pathname) || 'text/html'
+                  "Content-Type":/\b(x\-markdown)\b/.test( mime.lookup(pathname)) ? 'text/html': mime.lookup(pathname) || 'text/html'
               });
               var rs = fs.createReadStream(pathname), str = "";
               rs.on("error", function(err){  
@@ -48,14 +55,18 @@ function start(conf){
               });
 
               mime.isTXT = function(path){
+                
                 return /\b(text|xml|javascript|json)\b/.test( this.lookup(path) );
               };
               if( mime.isTXT(pathname) ){
-                rs.on("end",function(){    
-                  handle.execute(str, root, req.$, resp);  //将处理过程用一个新的模块实现
+
+                rs.on("end",function(){  
+                if(/\b(x\-markdown)\b/.test( mime.lookup(pathname))){
+                  str = markdown(str)
+                }  
+                  handle.execute(str, root, req, resp);  //将处理过程用一个新的模块实现
                 });
               }else{
-
                 rs.pipe(resp);
               }
             }
