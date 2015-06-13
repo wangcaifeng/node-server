@@ -11,7 +11,7 @@ github: <https://github.com/wangcaifeng/node-server-forfront/>
 * 进入服务器根目录: $ 
 	``cd node_modules/ node-server-forfront``
 * 启动 node-server-forfront服务:$ 
-	``node creatserver.js`` 
+	``node node-server.js`` 
 * 配置文件参考: [lib\config/config.js](lib/config/config.js) 
 
 	
