@@ -34,6 +34,7 @@
     "less": "*",
     "marked": "^0.3.3",
     "mime": "*",
+    "mincss": "^0.4.1",
     "underscore": ">=1.7.0"
   },
   "devDependencies": {

@@ -22,7 +22,8 @@ function start(conf){
       try{pathurl = decodeURI(url.parse(req.url).pathname); }catch(e){ pathurl = req.url; }
       var pathname = (pathurl === '/') ? (root) : root + pathurl; 
           req.data =querystring.parse(url.parse(req.url).query);
-          req.$ = {title: pathurl, fileList: [], util:'http://127.0.0.1:2850/',root:root};
+          var serverhost ="http://" + req.headers.host.split(':')[0];
+          req.$ = {title: pathurl, fileList: [], util:serverhost+":2850",root:root};
           var DEBUG = req.data.debug === "true"
       fs.stat(pathname, function(error, stats){
         if(error){
@@ -60,7 +61,7 @@ function start(conf){
               };
               if( mime.isTXT(pathname) ){
 
-                rs.on("end",function(){  
+                rs.on("end",function(){ 
                 if(/\b(x\-markdown)\b/.test( mime.lookup(pathname))){
                   str = markdown(str)
                 }  

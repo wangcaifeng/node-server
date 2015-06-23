@@ -7,14 +7,14 @@ module.exports = function (grunt) {
         separator: ';'
       },
       dist: {
-        src: ['demo/src/zepto.js', 'demo/src/underscore.js'],
-        dest: 'demo/dest/libs.js'
+        src: ['D:\\project\\mobile_story\\css\\atlas.css', 'D:\\project\\mobile_story\\css\\theme.css'],
+        dest: 'D:\\project\\mobile_story\\css\\atlass.css'
       }
     },
     uglify: {
       build: {
-        src: 'demo/dest/libs.js',
-        dest: 'demo/dest/libs.min.js'
+        src: 'D:\\project\\mobile_story\\css\\atlass.css',
+        dest: 'D:\\project\\mobile_story\\css\\atlass.min.css'
       }
     },
     less: {  
