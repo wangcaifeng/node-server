@@ -1,6 +1,6 @@
 {
   "name": "node-server-forfront",
-  "version": "0.10.4",
+  "version": "0.10.5",
   "description": "a nodejs based file-system-server",
   "main": "node-server.js",
   "repository": {
